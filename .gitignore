@@ -1,0 +1,7 @@
+config/application.yml
+config/database.yml
+
+.byebug_history
+.idea/
+
+tmp/pids/*.pid
