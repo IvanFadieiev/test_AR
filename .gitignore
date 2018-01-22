@@ -5,3 +5,6 @@ config/database.yml
 .idea/
 
 tmp/pids/*.pid
+tmp/pids/*.lock
+
+logs/*.log
