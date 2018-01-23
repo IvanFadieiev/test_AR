@@ -1,1 +1,1 @@
-development: passenger start -R app.ru --pid-file ./tmp/pids/passenger.pid --log-file ./logs/passenger.log --log-level 3 --envvar APP_ENV=development
+server: passenger start -R app.ru --pid-file ./tmp/pids/passenger.pid --log-file ./logs/passenger.log --log-level 3 --restart-dir ./tmp --envvar APP_ENV=development

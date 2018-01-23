@@ -1,0 +1,1 @@
+server: passenger start -R app.ru -e production --pid-file ./tmp/pids/passenger.pid --log-file ./logs/passenger.log --log-level 3 --restart-dir ./tmp --envvar APP_ENV=production
