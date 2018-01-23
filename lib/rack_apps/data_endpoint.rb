@@ -6,7 +6,8 @@ class DataEndpoint < RackBase
     if request(env).post? && request(env).path.eql?('/data')
       data = request(env).params['sensor_data']
       DataParser.new(data).perform
-      response(SensorValue.all.inspect, 201)
+      # response(SensorValue.all.inspect, 201)
+      response('Ok', 201)
     else
       response('Not Found', 404)
     end
