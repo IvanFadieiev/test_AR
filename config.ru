@@ -1,5 +1,4 @@
 require 'sequel'
-require 'rack/token_auth'
 require 'figaro'
 require 'byebug'
 require 'logger'

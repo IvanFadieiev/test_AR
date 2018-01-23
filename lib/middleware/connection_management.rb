@@ -19,12 +19,13 @@ class ConnectionManagement
 
     def db_config
       {
-        adapter:  db['adapter'],
-        host:     db['host'],
-        user:     db['username'],
-        password: db['password'],
-        database: db['database'],
-        logger:   $logger
+        adapter:         db['adapter'],
+        host:            db['host'],
+        user:            db['username'],
+        password:        db['password'],
+        database:        db['database'],
+        max_connections: db['max_connections'],
+        logger:          $logger
       }
     end
   end

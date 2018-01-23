@@ -20,6 +20,7 @@ class DataParser
       end
     end
     db[:sensor_values].multi_insert(array)
+    db.disconnect
   end
 
   private

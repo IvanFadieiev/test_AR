@@ -10,3 +10,4 @@ sql = 'BEGIN;' \
       'COMMIT;'
 
 db.run(sql)
+db.disconnect
