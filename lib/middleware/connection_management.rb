@@ -7,8 +7,12 @@ class ConnectionManagement
   end
 
   def call(env)
-    ActiveRecord::Base.establish_connection(db_config)
+    connect_to_db
     @app.call env
+  end
+
+  def connect_to_db
+    ActiveRecord::Base.establish_connection(db_config)
   end
 
   private

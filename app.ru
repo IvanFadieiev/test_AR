@@ -2,6 +2,7 @@ require 'active_record'
 require 'rack/token_auth'
 require 'figaro'
 require 'byebug'
+require 'jsonb_accessor'
 
 env = ENV['APP_ENV'] || 'development'
 
