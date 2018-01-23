@@ -16,8 +16,7 @@ class DataParser
                    timestamp: DateTime.parse(sensors_batch_data['t']),
                    sensor_id: sensor_data['id'].to_s,
                    value: sensor_data['v'].to_s,
-                   created_at: Time.now,
-                   updated_at: Time.now }
+                   created_at: Time.now }
       end
     end
     db[:sensor_values].multi_insert(array)

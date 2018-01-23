@@ -1,5 +1,5 @@
 # # SensorValue
-# class SensorValue < ActiveRecord::Base
+# class SensorValue < Sequel::Model
 #   def value
 #     if value_attr.include?('{')
 #       JSON.parse(value_attr.gsub('=>', ':'))

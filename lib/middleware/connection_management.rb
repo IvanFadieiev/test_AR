@@ -7,14 +7,14 @@ class ConnectionManagement
       Sequel.connect(db_config)
     end
 
+    def db
+      YAML.load(db_config_file)
+    end
+
     private
 
     def db_config_file
       File.open('./config/database.yml')
-    end
-
-    def db
-      YAML.load(db_config_file)
     end
 
     def db_config
