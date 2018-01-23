@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 ruby '2.4.1'
 
 gem 'activerecord'
+gem 'rack-token_auth'
 gem 'byebug'
 gem 'passenger', '>= 5.0.25', require: 'phusion_passenger/rack_handler'
 gem 'foreman'

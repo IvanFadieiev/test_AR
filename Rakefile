@@ -62,4 +62,11 @@ end
     puts "Migration #{path} created"
     abort # needed stop other tasks
   end
+
+  desc 'Generate token'
+  task :token do
+    require 'securerandom'
+
+    puts SecureRandom.hex(64)
+  end
 end

@@ -1,6 +1,6 @@
 require 'active_record'
+require 'rack/token_auth'
 require 'figaro'
-require 'rack'
 require 'byebug'
 
 env = ENV['APP_ENV'] || 'development'
@@ -18,11 +18,18 @@ ActiveRecord::Base.logger = Logger.new(STDOUT) unless ENV['APP_ENV'].eql?('produ
 logger = Logger.new("./logs/#{env}.log")
 
 App = Rack::Builder.new do
-  map '/data' do
-    DbSwitcher.write_file! # switch DB connections
-    use ConnectionManagement
-    use Rack::CommonLogger, logger
+  use ConnectionManagement
+  use Rack::CommonLogger, logger
+  use Rack::ContentType, 'application/json'
+
+  map '/' do
     run DataEndpoint.new
+  end
+  map '/system' do
+    use Rack::TokenAuth, unauthorized_app: SwitchDb.unauth do |token, options, env|
+      token == ENV['s_db_token']
+    end
+    run SwitchDb.new
   end
 end
 

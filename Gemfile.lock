@@ -29,6 +29,8 @@ GEM
       rake (>= 0.8.1)
     pg (0.18.4)
     rack (2.0.3)
+    rack-token_auth (0.1.0)
+      rack
     rake (12.3.0)
     thor (0.20.0)
     thread_safe (0.3.6)
@@ -46,6 +48,7 @@ DEPENDENCIES
   passenger (>= 5.0.25)
   pg (~> 0.18.4)
   rack
+  rack-token_auth
 
 RUBY VERSION
    ruby 2.4.1p111

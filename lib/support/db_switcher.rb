@@ -20,23 +20,17 @@ class DbSwitcher
       end
     end
 
+    def yaml_file
+      YAML.load(file)
+    end
+
     private
 
     def file
       File.open(FILE_PATH)
     end
 
-    def yaml_file
-      YAML.load(file)
-    end
-
     def db_switch
-      # CASES2 = ['first', 'second']
-      #
-      # current_index = CASES2.find_index(yaml_file[KEY])
-      # next_index = current_index + 1
-      # index = next_index > (CASES2.size - 1) ? 0 : next_index
-      # CASES2[index]
       yaml_file[KEY].eql?(CASES[:first]) ? CASES[:second] : CASES[:first]
     end
   end
