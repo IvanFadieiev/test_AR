@@ -1,5 +1,3 @@
-require 'active_record_bulk_insert'
-
 # DataParser
 class DataParser
   attr_accessor :data
@@ -9,6 +7,7 @@ class DataParser
   end
 
   def perform
+    db = ConnectionManagement.connect_to_db
     array = []
     device_id = parsed_data['deviceId']
     parsed_data['data'].each do |sensors_batch_data|
@@ -16,11 +15,12 @@ class DataParser
         array << { device_id: device_id,
                    timestamp: DateTime.parse(sensors_batch_data['t']),
                    sensor_id: sensor_data['id'].to_s,
-                   value: sensor_data['v'].to_s }
+                   value: sensor_data['v'].to_s,
+                   created_at: Time.now,
+                   updated_at: Time.now }
       end
     end
-
-    SensorValue.bulk_insert(array)
+    db[:sensor_values].multi_insert(array)
   end
 
   private

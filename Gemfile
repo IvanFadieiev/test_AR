@@ -1,8 +1,7 @@
 source 'https://rubygems.org'
 ruby '2.4.1'
 
-gem 'activerecord'
-gem 'active_record_bulk_insert'
+gem 'sequel'
 gem 'byebug'
 gem 'rack-token_auth'
 gem 'passenger', '>= 5.0.25', require: 'phusion_passenger/rack_handler'

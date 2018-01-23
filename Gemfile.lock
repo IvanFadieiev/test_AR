@@ -33,6 +33,7 @@ GEM
     rack-token_auth (0.1.0)
       rack
     rake (12.3.0)
+    sequel (5.4.0)
     thor (0.20.0)
     thread_safe (0.3.6)
     tzinfo (1.2.4)
@@ -51,6 +52,7 @@ DEPENDENCIES
   pg (~> 0.18.4)
   rack
   rack-token_auth
+  sequel
 
 RUBY VERSION
    ruby 2.4.1p111

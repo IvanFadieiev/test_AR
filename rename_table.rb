@@ -1,7 +1,7 @@
-require 'active_record'
+require 'sequel'
 require './lib/middleware/connection_management'
 
-ConnectionManagement.new('console').connect_to_db
+db = ConnectionManagement.connect_to_db
 
 sql = 'BEGIN;' \
       'ALTER TABLE sensor_values RENAME TO sensor_values_dup;' \
@@ -9,4 +9,4 @@ sql = 'BEGIN;' \
       'ALTER TABLE sensor_values_dup RENAME TO sensor_values_second;' \
       'COMMIT;'
 
-ActiveRecord::Base.connection.execute(sql)
+db.run(sql)

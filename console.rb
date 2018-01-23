@@ -1,15 +1,17 @@
-require 'active_record'
+require 'sequel'
 require 'figaro'
 require 'byebug'
 require 'pp'
 
 env = ENV['APP_ENV'] || 'development'
 
-%w[models lib/support lib/rack_apps lib/middleware].each do |dir_name|
+%w[lib/support lib/rack_apps lib/middleware].each do |dir_name|
   Dir[File.dirname(__FILE__) + "/#{dir_name}/*.rb"].each { |file| require file }
 end
 
 Figaro.application = Figaro::Application.new(environment: env, path: './config/application.yml')
 Figaro.load
 
-ConnectionManagement.new('console').connect_to_db
+$logger = Logger.new("./logs/#{env}.log")
+
+# ConnectionManagement.connect_to_db

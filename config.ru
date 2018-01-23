@@ -1,7 +1,8 @@
-require 'active_record'
+require 'sequel'
 require 'rack/token_auth'
 require 'figaro'
 require 'byebug'
+require 'logger'
 
 env = ENV['APP_ENV'] || 'development'
 
@@ -14,12 +15,10 @@ CreatePid.for(file: __FILE__, pid: Process.pid)
 Figaro.application = Figaro::Application.new(environment: env, path: './config/application.yml')
 Figaro.load
 
-ActiveRecord::Base.logger = Logger.new(STDOUT) unless ENV['APP_ENV'].eql?('production')
-logger = Logger.new("./logs/#{env}.log")
+$logger = Logger.new("./logs/#{env}.log")
 
 App = Rack::Builder.new do
-  use ConnectionManagement
-  use Rack::CommonLogger, logger
+  use Rack::CommonLogger, $logger
   use Rack::ContentType, 'application/json'
 
   map '/' do

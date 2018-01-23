@@ -1,3 +1,6 @@
+require 'json'
+
+# RackBase
 class RackBase
   private
 
