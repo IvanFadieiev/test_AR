@@ -1,3 +1,6 @@
+require 'active_record_bulk_insert'
+
+# DataParser
 class DataParser
   attr_accessor :data
 
@@ -6,15 +9,18 @@ class DataParser
   end
 
   def perform
+    array = []
     device_id = parsed_data['deviceId']
     parsed_data['data'].each do |sensors_batch_data|
       sensors_batch_data['s'].each do |sensor_data|
-        SensorValue.create(device_id: device_id,
-                           timestamp: DateTime.parse(sensors_batch_data['t']),
-                           sensor_id: sensor_data['id'].to_s,
-                           value: sensor_data['v'].to_s)
+        array << { device_id: device_id,
+                   timestamp: DateTime.parse(sensors_batch_data['t']),
+                   sensor_id: sensor_data['id'].to_s,
+                   value: sensor_data['v'].to_s }
       end
     end
+
+    SensorValue.bulk_insert(array)
   end
 
   private

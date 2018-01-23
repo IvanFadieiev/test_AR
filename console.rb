@@ -2,7 +2,6 @@ require 'active_record'
 require 'figaro'
 require 'byebug'
 require 'pp'
-require 'jsonb_accessor'
 
 env = ENV['APP_ENV'] || 'development'
 
