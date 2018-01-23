@@ -1,16 +1,7 @@
 # config/database.yml
-first:
-  adapter: 'postgresql'
-  encoding: utf-8
-  host:
-  username:
-  password:
-  database:
-
-second:
-  adapter: 'postgresql'
-  encoding: utf-8
-  host:
-  username:
-  password:
-  database:
+adapter: 'postgresql'
+encoding: utf-8
+host:
+username:
+password:
+database:

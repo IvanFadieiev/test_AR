@@ -1,5 +1,4 @@
 require_relative './rack_base'
-# require 'json'
 
 # DataEndpoint
 class DataEndpoint < RackBase

@@ -8,7 +8,7 @@ class ConnectionManagement
 
   def call(env)
     connect_to_db
-    @app.call env
+    @app.call(env)
   end
 
   def connect_to_db
@@ -25,22 +25,13 @@ class ConnectionManagement
     YAML.load(db_config_file)
   end
 
-  def current_db_file
-    File.open('./config/current_db.yml')
-  end
-
-  def current_db_name
-    YAML.load(current_db_file)['current_db']
-  end
-
   def db_config
-    current_db = current_db_name
     {
-      adapter:  db[current_db]['adapter'],
-      host:     db[current_db]['host'],
-      username: db[current_db]['username'],
-      password: db[current_db]['password'],
-      database: db[current_db]['database']
+      adapter:  db['adapter'],
+      host:     db['host'],
+      username: db['username'],
+      password: db['password'],
+      database: db['database']
     }
   end
 end

@@ -25,12 +25,6 @@ App = Rack::Builder.new do
   map '/' do
     run DataEndpoint.new
   end
-  map '/system' do
-    use Rack::TokenAuth, unauthorized_app: SwitchDb.unauth do |token, options, env|
-      token == ENV['s_db_token']
-    end
-    run SwitchDb.new
-  end
 end
 
 run App
