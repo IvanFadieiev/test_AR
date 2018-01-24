@@ -1,6 +1,7 @@
 require 'figaro'
 require 'byebug'
 require 'logger'
+require 'json'
 
 ENV['APP_ENV'] ||= 'development'
 env = ENV['APP_ENV']

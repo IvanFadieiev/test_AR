@@ -1,11 +1,12 @@
 require 'open3'
+
 start_time = Time.now
 
 threads = []
-1.upto(10) do
+1.upto(20) do
   threads << Thread.new do
-    1.upto(30) do
-      stdin, stdout, stderr, wait_thr = Open3.popen3('curl -X POST http://localhost:3000/data -d ""')
+    1.upto(20) do
+      stdin, stdout, stderr, wait_thr = Open3.popen3(%w[curl -X POST http://localhost:3000/data -H 'cache-control: no-cache' -H 'content-type: application/json' -d '{"deviceId": "MY_DEVICE_ID", "data": [{"t": "2018-01-22T15:54:21.479Z", "s": [{"id": 1, "v": 0.2762986431054655}, {"id": 2, "v": 0.6470680805673417}, {"id": 3, "v": 0.930919699374408}, {"id": 123, "v": {"lat": 0.9961826432936711, "lon": 0.1762492468784287, "alt": 0.4435830413349826}}]}, {"t": "2018-01-22T15:54:21.584Z", "s": [{"id": 1, "v": 0.5556222929916794}, {"id": 2, "v": 0.9063087527986375}, {"id": 3, "v": 0.7172139449603494}, {"id": 123, "v": {"lat": 0.6090474370419083, "lon": 0.10963109615671862, "alt": 0.28563770351988627}}]}, {"t": "2018-01-22T15:54:21.685Z", "s": [{"id": 1, "v": 0.5964261807949829}, {"id": 2, "v": 0.06526091528260469}, {"id": 3, "v": 0.8267062775425253}, {"id": 123, "v": {"lat": 0.20461601312908306, "lon": 0.7105134956067536, "alt": 0.6884817287383533}}]}]}'].join(' '))
       stdout.gets(nil)
       stdout.close
       stderr.gets(nil)

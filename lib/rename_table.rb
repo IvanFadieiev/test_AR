@@ -1,4 +1,4 @@
-require './lib/middleware/connection_management'
+require './lib/support/connection_management'
 
 ENV['APP_ENV'] ||= 'development'
 

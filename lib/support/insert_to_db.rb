@@ -8,8 +8,9 @@ class InsertToDB
   end
 
   def perform
-    statement_build(parsed_data)
-    values_build(parsed_data)
+    p_data = parsed_data
+    statement_build(p_data)
+    values_build(p_data)
 
     conn.prepare('statement1', @statement)
     conn.exec_prepared('statement1', @values_array)
@@ -22,12 +23,15 @@ class InsertToDB
 
   private
 
-  def data # data MOCK
-    File.read('./example.json')
-  end
+  # def data # data MOCK
+  #   File.read('./example.json')
+  # end
 
   def parsed_data
-    JSON.parse(data)
+    raise 'No data passed' if data.nil?
+    JSON.parse(data).tap do |data|
+      raise 'Data only in json' unless data.is_a?(Hash)
+    end
   end
 
   def statement_build(parsed_data)
