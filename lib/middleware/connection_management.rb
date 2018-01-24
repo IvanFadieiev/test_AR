@@ -1,14 +1,15 @@
 require 'yaml'
+require 'pg'
 
 # ConnectionManagement
 class ConnectionManagement
   class << self
     def connect_to_db
-      Sequel.connect(db_config)
+      PG.connect(db_config)
     end
 
     def db
-      YAML.load(db_config_file)
+      YAML.load(db_config_file)[ENV['APP_ENV']]
     end
 
     private
@@ -19,13 +20,11 @@ class ConnectionManagement
 
     def db_config
       {
-        adapter:         db['adapter'],
+        # adapter:         db['adapter'],
         host:            db['host'],
         user:            db['username'],
         password:        db['password'],
-        database:        db['database'],
-        max_connections: db['max_connections'],
-        logger:          $logger
+        dbname:          db['database']
       }
     end
   end

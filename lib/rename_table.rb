@@ -1,7 +1,8 @@
-require 'sequel'
 require './lib/middleware/connection_management'
 
-db = ConnectionManagement.connect_to_db
+ENV['APP_ENV'] ||= 'development'
+
+conn = ConnectionManagement.connect_to_db
 
 sql = 'BEGIN;' \
       'ALTER TABLE sensor_values RENAME TO sensor_values_dup;' \
@@ -9,5 +10,6 @@ sql = 'BEGIN;' \
       'ALTER TABLE sensor_values_dup RENAME TO sensor_values_second;' \
       'COMMIT;'
 
-db.run(sql)
-db.disconnect
+conn.exec(sql)
+
+conn.close if conn

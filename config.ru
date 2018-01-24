@@ -1,9 +1,9 @@
-require 'sequel'
 require 'figaro'
 require 'byebug'
 require 'logger'
 
-env = ENV['APP_ENV'] || 'development'
+ENV['APP_ENV'] ||= 'development'
+env = ENV['APP_ENV']
 
 %w[models lib/support lib/rack_apps lib/middleware].each do |dir_name|
   Dir[File.dirname(__FILE__) + "/#{dir_name}/*.rb"].each { |file| require file }
