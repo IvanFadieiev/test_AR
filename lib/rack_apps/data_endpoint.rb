@@ -9,6 +9,9 @@ class DataEndpoint < RackBase
 
     if request(env).post? && request(env).path.eql?('/tracking')
       data = request(env).body.read
+      if data.empty?
+        return response('Data should be passed', 406)
+      end
       InsertToDB.new(data).perform
       response('Ok', 201)
     else

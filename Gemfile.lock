@@ -84,6 +84,7 @@ DEPENDENCIES
   passenger (>= 5.0.25)
   pg (~> 0.18.4)
   rack
+  rake
   standalone_migrations
 
 RUBY VERSION
