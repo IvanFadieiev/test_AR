@@ -7,7 +7,7 @@ class DataEndpoint < RackBase
       return response("Content-Type should be 'application/json'", 415)
     end
 
-    if request(env).post? && request(env).path.eql?('/data')
+    if request(env).post? && request(env).path.eql?('/tracking')
       data = request(env).body.read
       InsertToDB.new(data).perform
       response('Ok', 201)

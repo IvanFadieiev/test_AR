@@ -1,4 +1,0 @@
-development:
-  LOG: true
-production:
-  LOG: false

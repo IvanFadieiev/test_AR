@@ -1,19 +1,18 @@
-require 'figaro'
 require 'byebug'
 require 'logger'
 require 'json'
+require 'dotenv'
 
 ENV['APP_ENV'] ||= 'development'
 env = ENV['APP_ENV']
+
+Dotenv.load("./config/application.env.#{env}")
 
 %w[models lib/support lib/rack_apps lib/middleware].each do |dir_name|
   Dir[File.dirname(__FILE__) + "/#{dir_name}/*.rb"].each { |file| require file }
 end
 
 CreatePid.for(file: __FILE__, pid: Process.pid)
-
-Figaro.application = Figaro::Application.new(environment: env, path: './config/application.yml')
-Figaro.load
 
 $logger = Logger.new("./logs/#{env}.log")
 
