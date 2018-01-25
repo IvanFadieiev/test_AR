@@ -1,0 +1,30 @@
+---
+api_deploy_user: userssh
+ruby_version: 2.4.1
+ruby_gemset: car_server
+app_name: car_server
+
+git_repo: git@gitlab.chisw.us:ivan.fadeev/connected_cars_server.git
+git_branch: staging
+rails_env_name: staging
+# application absolute path
+app_path: '/home/{{api_deploy_user}}/applications/{{app_name}}'
+# path for current release
+current_path: '{{app_path}}/current'
+# path to shared folder
+shared_path: '{{app_path}}/shared'
+# number on releases to keep
+keep_releases: 5
+
+# uses for nginx configuration
+server_name: 192.168.2.141
+
+database_port: 5432
+database_adapter: postgresql
+#database_pool: 10
+database_pool: 50
+database_timeout: 150000
+database_username: user_car_server
+database_password: '1q2w3e1a2s3d1z2x3c'
+database_name: car_server_production
+database_host: localhost

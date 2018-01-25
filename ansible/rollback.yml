@@ -1,0 +1,40 @@
+---
+- hosts: "{{env}}"
+  vars_files:
+    - "vars/{{env}}.yml"
+  user: '{{api_deploy_user}}'
+
+  tasks:  
+    - name: looking for previous release
+      shell: "cd {{app_path}}/releases/$(ls {{app_path}}/releases | sort -r | head -2 | tail -1) && pwd"
+      register: new_current_path
+      ignore_errors: yes
+
+    - set_fact: rvm_wrapper_command="cd {{current_path}} && ~/.rvm/bin/rvm ruby-{{ruby_version}}@{{ruby_gemset}} --create do"
+
+    - name: Update app version
+      file: src={{ new_current_path.stdout }} path={{ app_path }}/current state=link
+      when: new_current_path|success
+
+    - set_fact: rvm_wrapper_command="cd {{new_current_path.stdout}} && ~/.rvm/bin/rvm ruby-{{ruby_version}}@{{ruby_gemset}} --create do"
+
+    - name: Run bundle install
+      shell: "{{ rvm_wrapper_command }} bash -lc 'bundle install --path {{ shared_path }}/bundle --deployment --without development test'"
+
+    - name: Run db:migrate
+      shell: "{{ rvm_wrapper_command }} bash -lc 'RAILS_ENV={{rails_env_name}} bundle exec rake db:migrate'"
+
+    - name: Precompile assets
+      shell: "{{ rvm_wrapper_command }} bash -lc 'RAILS_ENV={{rails_env_name}} bundle exec rake assets:precompile'"
+
+    - include: roles/webserver/tasks/passenger.yml
+      when: new_current_path|success
+
+    - name: looking for old release
+      shell: "cd {{app_path}}/releases/$(ls {{app_path}}/releases | sort -r | head -1) && pwd"
+      register: old_current_path
+      ignore_errors: yes
+
+    - name: remove old release
+      file: path={{ old_current_path.stdout }} state=absent
+      when: old_current_path|success

@@ -1,0 +1,9 @@
+---
+- include: nginx.yml
+  tags: nginx
+- include: ruby.yml
+  tags: ruby
+- include: deploy.yml
+  tags: deploy
+- include: passenger.yml
+  tags: passenger

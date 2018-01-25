@@ -1,0 +1,10 @@
+---
+- hosts: "{{env}}"
+  vars_files:
+    - "vars/{{env}}.yml"
+  user: '{{api_deploy_user}}'
+
+  roles:
+    - environment
+    - database
+    - webserver

@@ -1,0 +1,10 @@
+---
+{{rails_env_name}}:
+  adapter: {{database_adapter}}
+  port: {{database_port}}
+  pool: {{database_pool}}
+  timeout: {{database_timeout}}
+  database: {{database_name}}
+  username: {{database_username}}
+  password: {{database_password}}
+  host: {{database_host}}
