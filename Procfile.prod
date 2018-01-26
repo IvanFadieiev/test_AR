@@ -1,1 +1,1 @@
-server: passenger start -R config.ru -e production --pid-file ./tmp/pids/passenger.pid --log-file ./logs/passenger.log --log-level 3 --restart-dir ./tmp --envvar APP_ENV=production --max-pool-size 10 --max-request-queue-size 500
+server: passenger start -R config.ru -e production --pid-file ./tmp/pids/passenger.pid --log-file ./logs/passenger.log --log-level 3 --restart-dir ./tmp --envvar APP_ENV=production --max-pool-size 10 --max-request-queue-size 500 -d

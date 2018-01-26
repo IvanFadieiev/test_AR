@@ -28,7 +28,7 @@ class InsertToDB
   # end
 
   def parsed_data
-    raise 'No data passed' if data.nil?
+    raise 'No data passed' if data.nil? || data.empty?
     JSON.parse(data).tap do |data|
       raise 'Data only in json' unless data.is_a?(Hash)
     end

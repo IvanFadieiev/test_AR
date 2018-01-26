@@ -50,12 +50,14 @@
   with_items:
     - '{{ release_path }}/tmp'
     - '{{ release_path }}/logs'
+    - '{{ release_path }}/config'
 
 - name: Set links
   file: src={{ item.src }} path={{ item.path }} state=link
   with_items:
     - { src: '{{ shared_path }}/tmp', path: '{{ release_path }}/tmp' }
     - { src: '{{ shared_path }}/logs', path: '{{ release_path }}/logs' }
+    - { src: '{{ shared_path }}/config', path: '{{ release_path }}/config' }
 
 #
 # prepare app
