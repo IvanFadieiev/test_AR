@@ -4,6 +4,8 @@ config/application.env.development
 config/application.env.staging
 config/application.env.production
 
+passenger.3000.log
+
 .byebug_history
 .idea/
 
