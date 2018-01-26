@@ -11,7 +11,7 @@
 #  when: profile_check|failed
 
 - name: start passenger
-  shell: "{{ rvm_wrapper_command }} bash -lc 'foreman start -f Procfile.prod'"
+  shell: "{{ rvm_wrapper_command }} bash -lc 'foreman start -f Procfile.{{rails_env_name}}'"
 
 - name: restart passenger
   shell: "cd {{shared_path}}/tmp && touch restart.txt"
