@@ -21,7 +21,6 @@ server_name: 192.168.2.141
 
 database_port: 5432
 database_adapter: postgresql
-#database_pool: 10
 database_pool: 50
 database_timeout: 150000
 database_username: user_car_server

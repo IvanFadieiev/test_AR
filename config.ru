@@ -1,14 +1,11 @@
-require 'byebug'
-require 'logger'
-require 'json'
-require 'dotenv'
-
 ENV['APP_ENV'] ||= 'development'
 env = ENV['APP_ENV']
 
+Bundler.require(:default, env)
+
 Dotenv.load("./config/application.env.#{env}")
 
-%w[models lib/support lib/rack_apps lib/middleware].each do |dir_name|
+%w[lib/support lib/rack_apps lib/middleware].each do |dir_name|
   Dir[File.dirname(__FILE__) + "/#{dir_name}/*.rb"].each { |file| require file }
 end
 

@@ -8,6 +8,8 @@ server {
     # Turn on Passenger
     passenger_enabled on;
 
-#    passenger_root /home/userssh/.rbenv/versions/2.4.1/lib/ruby/gems/2.4.0/gems/passenger-5.1.12;
-    passenger_ruby /home/userssh/.rbenv/versions/2.4.1/ruby;
+    location / {
+      proxy_pass http://localhost:3000;
+      proxy_redirect     off;
+    }
 }
