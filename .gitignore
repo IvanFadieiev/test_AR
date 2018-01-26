@@ -1,6 +1,7 @@
 config/application.yml
 config/database.yml
 config/application.env.development
+config/application.env.staging
 config/application.env.production
 
 .byebug_history

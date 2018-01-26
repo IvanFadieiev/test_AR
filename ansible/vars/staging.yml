@@ -25,5 +25,5 @@ database_pool: 50
 database_timeout: 150000
 database_username: user_car_server
 database_password: '1q2w3e1a2s3d1z2x3c'
-database_name: car_server_production
+database_name: car_server_staging
 database_host: localhost
