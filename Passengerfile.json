@@ -1,0 +1,9 @@
+{
+  "pid_file": "./tmp/pids/passenger.pid",
+  "log_file": "./logs/passenger.log",
+  "log_level": 3,
+  "restart_dir": "./tmp",
+  "max_pool_size": 15,
+  "max_request_queue_size": 500,
+  "socket_file": "./tmp/passenger.socket"
+}

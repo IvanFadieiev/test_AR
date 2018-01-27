@@ -1,1 +1,1 @@
-server: passenger start -R config.ru -e staging --pid-file ./tmp/pids/passenger.pid --log-file ./logs/passenger.log --log-level 3 --restart-dir ./tmp --envvar APP_ENV=staging --max-pool-size 15 --max-request-queue-size 500 -d
+server: passenger start -R config.ru -e staging --envvar APP_ENV=staging -d
