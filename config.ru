@@ -4,7 +4,7 @@ Bundler.require(:default, env)
 
 Dotenv.load("./config/application.env.#{env}")
 
-%w[lib/support lib/rack_apps lib/middleware].each do |dir_name|
+%w[lib/support lib/rack_apps lib/middleware lib/middleware/**/*].each do |dir_name|
   Dir[File.dirname(__FILE__) + "/#{dir_name}/*.rb"].each { |file| require file }
 end
 
@@ -17,6 +17,10 @@ App = Rack::Builder.new do
   use Rack::ContentType, 'application/json'
 
   map '/' do
+    use CheckRequest::ContentType, 'application/json'
+    use CheckRequest::Method,      'POST'
+    use CheckRequest::Path,        '/tracking'
+
     run DataEndpoint.new
   end
 end

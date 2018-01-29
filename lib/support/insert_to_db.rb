@@ -12,8 +12,8 @@ class InsertToDB
     statement_build(p_data)
     values_build(p_data)
 
-    conn.prepare('statement1', @statement)
-    conn.exec_prepared('statement1', @values_array)
+    conn.prepare('guard_statement', @statement)
+    conn.exec_prepared('guard_statement', @values_array)
 
     $logger.info @statement if ENV['LOG'].eql?('true')
     $logger.info @values_array.to_s if ENV['LOG'].eql?('true')
