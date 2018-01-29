@@ -9,7 +9,7 @@ server {
     passenger_enabled on;
 
     location / {
-      proxy_pass http://localhost:3000;
+      proxy_pass http://unix:/home/userssh/applications/car_server/tmp/passenger.sock;
       proxy_redirect     off;
     }
 }

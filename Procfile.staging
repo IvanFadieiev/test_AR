@@ -1,1 +1,1 @@
-server: passenger start -R config.ru -e staging --envvar APP_ENV=staging -d
+server: passenger start -e staging --socket ./tmp/passenger.sock -d

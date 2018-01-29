@@ -11,5 +11,6 @@ passenger.3000.log
 
 tmp/pids/*.pid
 tmp/pids/*.lock
+tmp/*.sock
 
 logs/*.log

@@ -9,7 +9,7 @@ class ConnectionManagement
     end
 
     def db
-      YAML.load(db_config_file)[ENV['APP_ENV']]
+      YAML.load(db_config_file)[ENV['PASSENGER_APP_ENV']]
     end
 
     private
@@ -20,7 +20,6 @@ class ConnectionManagement
 
     def db_config
       {
-        # adapter:         db['adapter'],
         host:            db['host'],
         user:            db['username'],
         password:        db['password'],

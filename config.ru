@@ -1,5 +1,4 @@
-ENV['APP_ENV'] ||= 'development'
-env = ENV['APP_ENV']
+env = ENV['PASSENGER_APP_ENV']
 
 Bundler.require(:default, env)
 

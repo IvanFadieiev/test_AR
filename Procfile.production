@@ -1,1 +1,1 @@
-server: passenger start -R config.ru -e production --envvar APP_ENV=production -d
+server: passenger start -e production --socket ./tmp/passenger.sock -d

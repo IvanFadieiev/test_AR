@@ -1,6 +1,9 @@
+# TODO: move this file into the new project which will do
+# TODO: raw data aggregation operations
+
 require './lib/support/connection_management'
 
-ENV['APP_ENV'] ||= 'development'
+ENV['PASSENGER_APP_ENV'] ||= 'development'
 
 conn = ConnectionManagement.connect_to_db
 
