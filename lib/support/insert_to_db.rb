@@ -46,9 +46,9 @@ class InsertToDB
   def values_build(parsed_data)
     @values_array = []
     parsed_data['data'].each do |sensors_batch_data|
+      d = parsed_data['deviceId']
+      t = timestamp(sensors_batch_data)
       sensors_batch_data['s'].each do |sensor_data|
-        d = parsed_data['deviceId']
-        t = timestamp(sensors_batch_data)
         s = sensor_id(sensor_data)
         v = value(sensor_data)
         @values_array << d << t << s << v
