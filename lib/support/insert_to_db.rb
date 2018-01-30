@@ -1,30 +1,36 @@
 # InsertToDB
 class InsertToDB
-  attr_accessor :data, :conn, :parser
+  IN_BATCH = 100
+  SENSOR_VALUE_ATTRS_COUNT = 4 # for guard statemet
+
+  attr_accessor :data, :conn, :parser, :device_id, :json_data
 
   def initialize(data)
     @data = data
     @parser = Yajl::Parser.new
     @conn = ConnectionManagement.connect_to_db
+    @json_data = parsed_data
   end
 
   def perform
-    p_data = parsed_data
-    statement_build(p_data)
-    values_build(p_data)
+    @device_id = json_data['deviceId']
 
-    conn.prepare('guard_statement', @statement)
-    conn.exec_prepared('guard_statement', @values_array)
+    json_data['data'].each_slice(IN_BATCH).with_index do |p_data, index|
+      statement_build(p_data)
+      values_build(p_data)
 
-    $logger.info @statement if ENV['LOG'].eql?('true')
-    $logger.info @values_array.to_s if ENV['LOG'].eql?('true')
+      conn.prepare("guard_statement_#{index}_#{@device_id}", @statement)
+      conn.exec_prepared("guard_statement_#{index}_#{@device_id}", @values_array)
 
+      $logger.info @statement if ENV['LOG'].eql?('true')
+      $logger.info @values_array.to_s if ENV['LOG'].eql?('true')
+    end
     conn.close if conn
   end
 
   private
 
-  # def data # data MOCK
+  # def data # data STUB
   #   File.read('./example.json')
   # end
 
@@ -38,16 +44,16 @@ class InsertToDB
   def statement_build(parsed_data)
     array = []
     count = params_count(parsed_data)
-    (1..count).step(4) do |i|
+    (1..count).step(SENSOR_VALUE_ATTRS_COUNT) do |i|
       array << "($#{i}, $#{i + 1}, $#{i + 2}, $#{i + 3})"
     end
     @statement = statement_query(array.join(', '))
   end
 
-  def values_build(parsed_data)
+  def values_build(parsed_data_)
     @values_array = []
-    parsed_data['data'].each do |sensors_batch_data|
-      d = parsed_data['deviceId']
+    parsed_data_.each do |sensors_batch_data|
+      d = @device_id
       t = timestamp(sensors_batch_data)
       sensors_batch_data['s'].each do |sensor_data|
         s = sensor_id(sensor_data)
@@ -58,7 +64,7 @@ class InsertToDB
   end
 
   def params_count(parsed_data)
-    4 * parsed_data['data'].map { |hash| hash['s'] }.flatten.size
+    SENSOR_VALUE_ATTRS_COUNT * parsed_data.map { |hash| hash['s'] }.flatten.size
   end
 
   def statement_query(values)
