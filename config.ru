@@ -1,3 +1,5 @@
+require 'logger'
+
 env = ENV['PASSENGER_APP_ENV']
 
 Bundler.require(:default, env)

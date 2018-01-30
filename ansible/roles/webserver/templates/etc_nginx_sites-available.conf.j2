@@ -1,15 +1,21 @@
+upstream car_server_app {
+    server unix:{{app_path}}/shared/tmp/passenger.sock;
+}
+
 server {
     listen 80;
-    server_name 192.168.2.141;
+    server_name {{server_name}};
 
-    # Tell Nginx and Passenger where your app's 'public' directory is
-    root /home/userssh/applications/car_server/public;
+    root {{app_path}}/public;
 
     # Turn on Passenger
     passenger_enabled on;
+    passenger_base_uri /;
 
     location / {
-      proxy_pass http://unix:/home/userssh/applications/car_server/tmp/passenger.sock;
-      proxy_redirect     off;
+      proxy_pass http://car_server_app;
+      proxy_http_version 1.1;
+      proxy_set_header Host $http_host;
+      proxy_buffering off;
     }
 }
