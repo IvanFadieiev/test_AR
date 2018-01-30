@@ -1,9 +1,10 @@
 # InsertToDB
 class InsertToDB
-  attr_accessor :data, :conn
+  attr_accessor :data, :conn, :parser
 
   def initialize(data)
     @data = data
+    @parser = Yajl::Parser.new
     @conn = ConnectionManagement.connect_to_db
   end
 
@@ -29,7 +30,7 @@ class InsertToDB
 
   def parsed_data
     raise 'No data passed' if data.nil? || data.empty?
-    JSON.parse(data).tap do |data|
+    parser.parse(data).tap do |data|
       raise 'Data only in json' unless data.is_a?(Hash)
     end
   end
